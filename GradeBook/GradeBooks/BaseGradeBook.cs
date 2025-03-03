@@ -109,20 +109,38 @@ namespace GradeBook.GradeBooks
 
         public virtual double GetGPA(char letterGrade, StudentType studentType)
         {
+            double gpa;
             switch (letterGrade)
             {
                 case 'A':
-                    return 4;
+                    gpa = 4;
+                    break;
                 case 'B':
-                    return 3;
+                    gpa = 3;
+                    break;
                 case 'C':
-                    return 2;
+                    gpa = 2;
+                    break;
                 case 'D':
-                    return 1;
+                    gpa = 1;
+                    break;
                 case 'F':
+                    gpa = 0;
+                    break;
+                default:
                     return 0;
             }
-            return 0;
+            if(studentType == StudentType.Honors || studentType == StudentType.DualEnrolled){
+                //because 4 is the highest possible GPA
+                if(gpa == 4){
+                    return gpa;
+                }
+                else{
+                    gpa += 1;
+                }
+            }
+            return gpa;
+            
         }
 
         public virtual void CalculateStatistics()
